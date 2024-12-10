@@ -1,0 +1,677 @@
+* {
+  --zen-colors-primary: color-mix(in srgb, var(--zen-primary-color) 50%, black 50%);
+  --zen-colors-secondary: color-mix(in srgb, var(--zen-colors-primary) 20%, white 80%);
+  --zen-colors-tertiary: color-mix(in srgb, var(--zen-primary-color) 2%, white 98%);
+  --zen-colors-border: color-mix(in srgb, var(--zen-colors-secondary) 97%, black 3%);
+  --urlbar-box-bgcolor: color-mix(in srgb, var(--zen-primary-color) 3%, #f4f4f4 97%);
+  --zen-branding-paper: #F2F0E3;
+  --zen-branding-bg: light-dark(var(--zen-branding-paper), var(--zen-branding-dark));
+  --zen-branding-bg-reverse: light-dark(var(--zen-branding-dark), var(--zen-branding-paper));
+  --toolbarbutton-hover-background: color-mix(in srgb, var(--zen-branding-bg-reverse) 10%, transparent 90%);
+  --toolbarbutton-active-background: light-dark(rgba(255, 255, 255, .9), color-mix(in srgb, var(--zen-primary-color) 50%, rgba(255, 255, 255, .1)));
+  --zen-themed-toolbar-bg-transparency: 0;
+  --zen-themed-toolbar-bg-transparent: light-dark(rgba(255, 255, 255, var(--zen-themed-toolbar-bg-transparency)), rgba(0, 0, 0, var(--zen-themed-toolbar-bg-transparency)));
+  --zen-toolbar-element-bg: light-dark( rgba(255, 255, 255, 0.4), rgba(170, 170, 170, 0.2) );
+  --tab-selected-bgcolor: light-dark(rgba(255,255,255,.8), rgba(255,255,255,.25));
+  
+  @media (prefers-color-scheme: dark) {
+    --zen-colors-secondary: color-mix(in srgb, var(--zen-primary-color) 40%, black 60%);
+    --zen-colors-tertiary: color-mix(in srgb, var(--zen-primary-color) 15%, black 85%);
+    --zen-colors-border: color-mix(in srgb, var(--zen-colors-secondary) 80%, black 20%);
+    --urlbar-box-bgcolor: color-mix(in srgb, var(--zen-primary-color) 3%, rgb(24,24,24) 97%);
+  }
+}
+
+/*
+==== Beginning of customizable options ====
+The options below are customizable. Feel free to set them to
+whatever you like, as long as they're valid CSS values.
+*/
+
+* {
+  /* Primary accent color */
+  --zen-primary-color: #a0d490;
+  
+  /* Background color (light mode) */
+  --zen-browser-background: var(--toolbar-bgcolor);
+  
+  @media (prefers-color-scheme: dark) {
+    /* Background color (dark mode) */
+    --zen-browser-background: var(--toolbar-bgcolor);
+  }
+}
+
+/*
+==== End of customizable options ====
+*/
+
+/* Apply custom background, borders, border-radius, and sizes */
+
+body {
+  background: var(--zen-browser-background) !important;
+}
+
+#navigator-toolbox, toolbar {
+  background: transparent !important;
+  border-bottom: none !important;
+}
+
+#browser, #sidebar-main, #sidebar-box {
+  background: transparent !important;
+}
+
+#sidebar {
+  border: solid 1px var(--zen-colors-border) !important;
+  box-shadow: none !important;
+}
+
+#tabbrowser-tabbox {
+  margin: 6px !important;
+  margin-top: 0 !important;
+  border-radius: 10px !important;
+  outline: none !important;
+  border: solid 1px var(--zen-colors-border) !important;
+  box-shadow: none !important;
+  overflow: hidden;
+  
+  @media (-moz-bool-pref: "sidebar.verticalTabs") {
+    margin-left: 3px !important;
+  }
+}
+
+#nav-bar {
+  height: 38px !important;
+}
+
+/* URL bar */
+
+#urlbar-container {
+  min-height: 32px !important;
+  height: 32px !important;
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+  
+  #urlbar {  
+    #urlbar-background {
+      background: var(--zen-toolbar-element-bg) !important;
+      border-radius: 10px !important;
+      box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+    }
+
+    #identity-box {
+      margin: 0 !important;
+      
+      #identity-icon-box {
+        height: 26px !important;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: auto;
+        border-radius: 10px !important;
+      }
+      
+      #identity-icon {
+        @media (prefers-color-scheme: dark) {
+          filter: invert(100%) !important;
+        }
+      }
+      
+      &.verifiedDomain:is([pageproxystate="valid"]) {
+        #identity-icon {
+          list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/security.svg") !important;
+        }
+        
+        #identity-icon-box {
+          margin-right: 0 !important;
+          
+          &:hover {
+            background: light-dark(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1)) !important;
+          }
+        }
+      }
+      
+      &.localResource, &.verifiedDomain:is([pageproxystate="invalid"]) {
+        #identity-icon {
+          filter: none !important;
+        }
+      }
+      
+      &.chromeUI {
+        #identity-icon {
+          filter: none !important;
+        }
+        
+        #identity-icon-label {
+          display: none;
+        }
+        
+        #identity-icon-box {
+          background: light-dark(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1)) !important;
+          margin: auto 8px auto auto !important;
+        }
+        
+        @media (-moz-bool-pref: "zenfox.theme.zen-branding") {
+          #identity-icon {
+            list-style-image: url("https://github.com/zen-browser/desktop/blob/dev/configs/branding/beta/logo32.png?raw=true") !important;
+            filter: grayscale(1) !important;
+          }
+        }
+      }
+    }
+    
+    &:is([breakout-extend]) {
+      #urlbar-background {
+        background: var(--urlbar-box-bgcolor) !important;
+      }
+    }
+    
+    &:not([breakout-extend]) {
+      #urlbar-background {
+        margin-top: auto !important;
+        margin-bottom: auto !important;
+        min-height: 30px !important;
+        height: 30px !important;
+      }
+    }
+    
+    #tracking-protection-icon-container {
+      order: 1 !important;
+    }
+    
+    hbox, #tracking-protection-icon-container {
+      border-radius: 6px !important;
+    }
+    
+    .urlbar-page-action {
+      border-radius: 10px !important;
+      align-content: center !important;
+      padding: 5px !important;
+      width: 26px !important;
+      height: 26px !important;
+      
+      &:hover {
+        background: var(--zen-toolbar-element-bg) !important;
+      }
+      
+      &:is([open]) {
+        background: var(--zen-toolbar-element-bg) !important;
+      }
+    }
+    
+    #tracking-protection-icon-container {
+      border-radius: 10px !important;
+      padding-left: 5px !important;
+      padding-right: 5px !important;
+      height: 26px !important;
+      margin-top: auto !important;
+      margin-bottom: auto !important;
+      
+      &:hover {
+        background: var(--zen-toolbar-element-bg) !important;
+      }
+      
+      &:is([open]) {
+        background: var(--zen-toolbar-element-bg) !important;
+      }
+    }
+  }
+}
+
+/* Tabs */
+
+#tabbrowser-tabs {
+  border-left: none !important;
+
+  .tabbrowser-tab {
+    .tab-background {
+      min-height: 36px !important;
+      box-shadow: none !important;
+      margin-left: 6px !important;
+      border-radius: 8px !important;
+
+      &:is([selected], [multiselected]) {
+        box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+        outline: none !important;
+      }
+    }
+
+    .tab-icon-image, .tab-throbber {
+      margin-inline-end: 10px !important;
+    }
+
+    .tab-content {
+      padding-left: 14px !important;
+      padding-right: 20px !important;
+    }
+  }
+  
+  #tabs-newtab-button {
+    margin-left: 6px !important;
+    margin-right: 9px !important;
+    height: 36px !important;
+    
+    .toolbarbutton-text {
+      padding-left: 10px !important;
+    }
+  }
+  
+  &:not([expanded]) {
+    .tabbrowser-tab {
+      width: fit-content !important;
+      
+      .tab-background {
+        margin-left: 4px !important;
+        margin-right: 0 !important;
+        width: 36px !important;
+      }
+      
+      .tab-content {
+        padding-right: 0 !important;
+        width: fit-content !important;
+      }
+      
+      .tab-icon-image {
+        margin: 0 !important;
+      }
+    }
+    
+    #tabbrowser-arrowscrollbox-periphery {
+      width: fit-content !important;
+    }
+    
+    #tabs-newtab-button {
+      margin-left: 4px !important;
+      margin-right: 0 !important;
+      width: 36px !important;
+      height: 36px !important;
+    }
+  }
+}
+
+#vertical-pinned-tabs-container {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(var(--tab-pinned-min-width-expanded), auto)) !important;
+  
+  .tabbrowser-tab {
+    .tab-background {
+      margin-left: 0 !important;
+    }
+    
+    .tab-content {
+      padding-right: 14px !important;
+    }
+  }
+}
+
+/* Toolbar buttons */
+
+#nav-bar-customization-target, #PanelUI-button {
+  toolbarbutton {
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+    margin-left: 4px !important;
+    margin-right: 4px !important;
+    border-radius: 6px !important;
+    min-width: 28px !important;
+    width: 28px !important;
+    min-height: 28px !important;
+    height: 28px !important;
+    padding: 0 !important;
+    
+    #reload-button, #stop-button {
+      margin-top: 0 !important;
+    }
+    
+    &:hover {
+      background: var(--tab-hover-background-color) !important;
+    }
+    
+    &:active {
+      background: var(--toolbarbutton-active-background) !important;
+      
+      image {
+        background: none !important;
+      }
+      
+      .toolbarbutton-badge-stack {
+        background: none !important;
+      }
+    }
+    
+    &:is([checked]) {
+      background: var(--toolbarbutton-active-background) !important;
+      
+      image {
+        background: none !important;
+      }
+    }
+    
+    &:is([open]) {
+      background: var(--toolbarbutton-active-background) !important;
+      
+      image {
+        background: none !important;
+      }
+      
+      .toolbarbutton-badge-stack {
+        background: none !important;
+      }
+    }
+  }
+
+  toolbaritem#stop-reload-button {
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+    min-height: 28px !important;
+    height: 28px !important;
+  }
+}
+
+#nav-bar-customization-target {
+  margin-left: 4px;
+}
+
+/* Sidebar buttons */
+
+button:not([class="footer-button"], [class~="panel-button"]) {
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+  min-width: 36px !important;
+  min-height: 36px !important;
+  background: none !important;
+  
+  .button-background {
+    min-width: 36px !important;
+    min-height: 36px !important;
+    
+    img {
+      margin-left: 1.5px !important;
+      margin-right: 5px !important;
+      width: 16px !important;
+      height: 16px !important;
+    }
+  }
+  
+  &:hover {
+    .button-background {
+      background: var(--tab-hover-background-color) !important;
+    }
+  }
+}
+
+@media (-moz-bool-pref: "zenfox.theme.sidebar-icons") {
+  button-group {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    margin: 6px !important;
+    text-align: center !important;
+  }
+  
+  button {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    width: 36px !important;
+    padding: 0 !important;
+    
+    .button-background img {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    label {
+      display: none !important;
+    }
+  }
+}
+
+/* Buttons icons */
+
+#back-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/arrow-left.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#forward-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/arrow-right.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#reload-button {
+  image {
+    list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/reload.svg") !important;
+    @media (prefers-color-scheme: dark) {
+      filter: invert(100%) !important;
+    }
+  }
+  
+  .toolbarbutton-animatable-box image {
+    list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/reload-to-stop.svg") !important;
+    @media (prefers-color-scheme: dark) {
+      filter: invert(100%) !important;
+    }
+  }
+}
+
+#stop-button {
+  image: {
+    list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/close.svg") !important;
+    @media (prefers-color-scheme: dark) {
+      filter: invert(100%) !important;
+    }
+  }
+  
+  .toolbarbutton-animatable-box image {
+    list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/reload-to-stop.svg") !important;
+    @media (prefers-color-scheme: dark) {
+      filter: invert(100%) !important;
+    }
+  }
+}
+
+.tab-close-button {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/close.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#star-button:not([starred]) {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/bookmark-hollow.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#sidebar-button image {
+  transform: scale(-1,1) !important;
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/sidebars-right.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#new-tab-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/plus.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#alltabs-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/arrow-down.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#sync-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/tab.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#screenshot-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/screenshot.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#preferences-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/settings.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#save-page-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/save.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#print-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/print.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#find-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/search-page.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#open-file-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/open.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#zoom-out-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/zoom-out.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#zoom-in-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/plus.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#cut-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/edit-cut.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#copy-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/edit-copy.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#paste-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/edit-paste.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#email-link-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/mail.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#panic-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/forget.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#privatebrowsing-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/privateBrowsing.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#developer-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/developer.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#new-window-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/window.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#fullscreen-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/fullscreen.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#home-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/home.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#library-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/library.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#downloads-indicator-anchor image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/downloads.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#unified-extensions-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/extension.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#history-panelmenu image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/history.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
+
+#PanelUI-menu-button image {
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/menu.svg") !important;
+  @media (prefers-color-scheme: dark) {
+    filter: invert(100%) !important;
+  }
+}
