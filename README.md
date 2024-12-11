@@ -1,5 +1,6 @@
-# zenfox
-Bringing most of Zen's design language to Firefox
+# Zenfox
+Zenfox is a fan project that brings most of [Zen Browser](https://zen-browser.app)'s design langiuage
+to Firefox. Also includes Compact mode!
 
 ## Options
 ### Tabs & Sidebar
