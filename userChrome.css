@@ -1,3 +1,27 @@
+/*
+
+Copyright (c) 2024 Green (@greeeen-dev)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
+
 * {
   --zen-colors-primary: color-mix(in srgb, var(--zen-primary-color) 50%, black 50%);
   --zen-colors-secondary: color-mix(in srgb, var(--zen-colors-primary) 20%, white 80%);
@@ -33,7 +57,7 @@ whatever you like, as long as they're valid CSS values.
   --zen-primary-color: #a0d490;
   
   /* Background color (light mode) */
-  --zen-browser-background: var(--toolbar-bgcolor);
+  --zen-browser-background: linear-gradient(45deg, color-mix(in srgb, rgb(224.4, 255, 184.8) 30%, var(--zen-themed-toolbar-bg-transparent) 70%), color-mix(in srgb, rgb(79.2, 255, 70.4) 30%, var(--zen-themed-toolbar-bg-transparent) 70%));
   
   @media (prefers-color-scheme: dark) {
     /* Background color (dark mode) */
@@ -83,6 +107,14 @@ body {
   height: 38px !important;
 }
 
+/* macOS translucency */
+
+@media (-moz-platform: macos) {
+  #navigator-toolbox, #browser {
+    appearance: -moz-window-titlebar !important;
+  }
+}
+
 /* URL bar */
 
 #urlbar-container {
@@ -93,6 +125,7 @@ body {
   
   #urlbar {  
     #urlbar-background {
+      outline: none !important;
       background: var(--zen-toolbar-element-bg) !important;
       border-radius: 10px !important;
       box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
@@ -241,6 +274,10 @@ body {
     .tab-content {
       padding-left: 14px !important;
       padding-right: 20px !important;
+      
+      @media not (-moz-bool-pref: "sidebar.verticalTabs") {
+        padding-right: 10px !important;
+      }
     }
   }
   
@@ -255,34 +292,36 @@ body {
   }
   
   &:not([expanded]) {
-    .tabbrowser-tab {
-      width: fit-content !important;
-      
-      .tab-background {
+    @media (-moz-bool-pref: "sidebar.verticalTabs") {
+      .tabbrowser-tab {
+        width: fit-content !important;
+
+        .tab-background {
+          margin-left: 4px !important;
+          margin-right: 0 !important;
+          width: 36px !important;
+        }
+
+        .tab-content {
+          padding-right: 0 !important;
+          width: fit-content !important;
+        }
+
+        .tab-icon-image {
+          margin: 0 !important;
+        }
+      }
+
+      #tabbrowser-arrowscrollbox-periphery {
+        width: fit-content !important;
+      }
+
+      #tabs-newtab-button {
         margin-left: 4px !important;
         margin-right: 0 !important;
         width: 36px !important;
+        height: 36px !important;
       }
-      
-      .tab-content {
-        padding-right: 0 !important;
-        width: fit-content !important;
-      }
-      
-      .tab-icon-image {
-        margin: 0 !important;
-      }
-    }
-    
-    #tabbrowser-arrowscrollbox-periphery {
-      width: fit-content !important;
-    }
-    
-    #tabs-newtab-button {
-      margin-left: 4px !important;
-      margin-right: 0 !important;
-      width: 36px !important;
-      height: 36px !important;
     }
   }
 }
@@ -310,7 +349,7 @@ body {
 
 /* Toolbar buttons */
 
-#nav-bar-customization-target, #PanelUI-button {
+#nav-bar-customization-target, #PanelUI-button, #TabsToolbar-customization-target {
   toolbarbutton {
     margin-top: auto !important;
     margin-bottom: auto !important;
@@ -322,6 +361,10 @@ body {
     min-height: 28px !important;
     height: 28px !important;
     padding: 0 !important;
+    
+    .toolbarbutton-icon {
+      box-shadow: none !important;
+    }
     
     #reload-button, #stop-button {
       margin-top: 0 !important;
@@ -479,6 +522,7 @@ button:not([class="footer-button"], [class~="panel-button"]) {
 }
 
 .tab-close-button {
+  border-radius: 10px !important;
   list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/close.svg") !important;
   @media (prefers-color-scheme: dark) {
     filter: invert(100%) !important;
