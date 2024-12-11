@@ -319,7 +319,7 @@ body {
           margin: 0 !important;
         }
 
-        &:is([selected]) {
+        &:is([selected], [multiselected]) {
           .tab-background {
             background-color: var(--tab-selected-bgcolor) !important;
           }
@@ -466,12 +466,6 @@ body {
     margin-bottom: auto !important;
     min-height: 28px !important;
     height: 28px !important;
-  }
-  
-  .unified-extensions-item {
-    toolbarbutton {
-      margin: 0 !important;
-    }
   }
 }
 
