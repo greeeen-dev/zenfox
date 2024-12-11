@@ -37,7 +37,7 @@ whatever you like, as long as they're valid CSS values.
   
   @media (prefers-color-scheme: dark) {
     /* Background color (dark mode) */
-    --zen-browser-background: var(--toolbar-bgcolor);
+    --zen-browser-background: linear-gradient(45deg, color-mix(in srgb, rgb(80.5, 127.5, 72.5) 20%, var(--zen-themed-toolbar-bg-transparent) 80%), color-mix(in srgb, rgb(34.5, 127.5, 30.5) 20%, var(--zen-themed-toolbar-bg-transparent) 80%));
   }
 }
 
@@ -287,6 +287,12 @@ body {
   }
 }
 
+#tabbrowser-arrowscrollbox-periphery {
+  @media (-moz-bool-pref: "zenfox.theme.show-newtab") {
+    display: none !important;
+  }
+}
+
 #vertical-pinned-tabs-container {
   display: grid !important;
   grid-template-columns: repeat(auto-fit, minmax(var(--tab-pinned-min-width-expanded), auto)) !important;
@@ -321,11 +327,11 @@ body {
       margin-top: 0 !important;
     }
     
-    &:hover {
+    &:not([disabled]):hover {
       background: var(--tab-hover-background-color) !important;
     }
     
-    &:active {
+    &:not([disabled]):active {
       background: var(--toolbarbutton-active-background) !important;
       
       image {
@@ -487,8 +493,7 @@ button:not([class="footer-button"], [class~="panel-button"]) {
 }
 
 #sidebar-button image {
-  transform: scale(-1,1) !important;
-  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/sidebars-right.svg") !important;
+  list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/move-tab.svg") !important;
   @media (prefers-color-scheme: dark) {
     filter: invert(100%) !important;
   }
@@ -673,5 +678,79 @@ button:not([class="footer-button"], [class~="panel-button"]) {
   list-style-image: url("https://github.com/zen-browser/desktop/raw/refs/heads/dev/src/browser/themes/shared/zen-icons/menu.svg") !important;
   @media (prefers-color-scheme: dark) {
     filter: invert(100%) !important;
+  }
+}
+
+.titlebar-spacer {
+  display: none;
+}
+
+/* Compact mode */
+
+@media (-moz-bool-pref: "zenfox.theme.compact-mode") {
+  #sidebar-main {
+    min-width: 3px !important;
+    max-width: 3px !important;
+
+    #vertical-tabs {
+      display: none !important;
+    }
+    
+    .tools-and-extensions {
+      display: none !important;
+    }
+    
+    &:hover {
+      min-width: unset !important;
+      max-width: unset !important;
+      
+      #vertical-tabs {
+        display: flex !important;
+      }
+      
+      .tools-and-extensions {
+        display: flex !important;
+      }
+    }
+  }
+  
+  #navigator-toolbox {
+    #nav-bar {
+      min-height: 6px !important;
+      max-height: 6px !important;
+
+      #nav-bar-customization-target, #PanelUI-button, .private-browsing-indicator-with-label {
+        display: none !important;
+      }
+
+      #nav-bar-overflow-button, .titlebar-buttonbox-container {
+        opacity: 0 !important;
+      }
+    }
+    
+    @media not (-moz-bool-pref: "zenfox.theme.compact-keep-bookmarks") {
+      #PersonalToolbar {
+        display: none !important;
+      }
+    }
+    
+    &:hover {
+      #nav-bar {
+        min-height: unset !important;
+        max-height: unset !important;
+
+        #nav-bar-customization-target, #PanelUI-button, .private-browsing-indicator-with-label {
+          display: flex !important;
+        }
+
+        #nav-bar-overflow-button, .titlebar-buttonbox-container {
+          opacity: 1 !important;
+        }
+      }
+      
+      #PersonalToolbar {
+        display: flex !important;
+      }
+    }
   }
 }
