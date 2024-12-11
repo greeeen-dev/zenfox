@@ -99,7 +99,7 @@ body {
   overflow: hidden;
   
   @media (-moz-bool-pref: "sidebar.verticalTabs") {
-    margin-left: 3px !important;
+    margin-left: 0px !important;
   }
 }
 
@@ -295,6 +295,39 @@ body {
     }
   }
   
+  @media (-moz-bool-pref: "sidebar.verticalTabs") {
+    #vertical-pinned-tabs-container {
+      grid-template-columns: repeat(auto-fit, minmax(var(--tab-pinned-min-width-expanded), auto)) !important;
+
+      .tabbrowser-tab {
+        margin-top: 4px !important;
+        margin-bottom: 4px !important;
+        .tab-background {
+          margin-left: 2px !important;
+          margin-right: 2px !important;
+          background: var(--zen-toolbar-element-bg) !important;
+          min-height: 44px !important;
+        }
+
+        .tab-content {
+          padding-right: 14px !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
+        }
+
+        .tab-icon-image {
+          margin: 0 !important;
+        }
+
+        &:is([selected]) {
+          .tab-background {
+            background-color: var(--tab-selected-bgcolor) !important;
+          }
+        }
+      }
+    }
+  }
+  
   &:not([expanded]) {
     @media (-moz-bool-pref: "sidebar.verticalTabs") {
       .tabbrowser-tab {
@@ -304,6 +337,10 @@ body {
           margin-left: 4px !important;
           margin-right: 0 !important;
           width: 36px !important;
+          
+          &:is([selected], [multiselected]) {
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 1px 1px !important;
+          }
         }
 
         .tab-content {
@@ -325,6 +362,26 @@ body {
         margin-right: 0 !important;
         width: 36px !important;
         height: 36px !important;
+        min-height: 36px !important;
+      }
+      
+      #vertical-pinned-tabs-container {
+        .tabbrowser-tab {
+          height: 36px !important;
+          
+          .tab-background {
+            margin-left: auto !important;
+            margin-right: auto !important;
+            margin-bottom: 0 !important;
+            margin-top: 0 !important;
+            height: 36px !important;
+            min-height: 36px !important;
+            max-height: 36px !important;
+          }
+          .tab-content {
+            margin: 0 !important;
+          }
+        }
       }
     }
   }
@@ -341,36 +398,6 @@ body {
 #tabbrowser-arrowscrollbox-periphery {
   @media (-moz-bool-pref: "zenfox.theme.show-newtab") {
     display: none !important;
-  }
-}
-
-#vertical-pinned-tabs-container {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(var(--tab-pinned-min-width-expanded), auto)) !important;
-  
-  .tabbrowser-tab {
-    .tab-background {
-      margin-left: 2px !important;
-      margin-right: 2px !important;
-      background: var(--zen-toolbar-element-bg) !important;
-      min-height: 44px !important;
-    }
-    
-    .tab-content {
-      padding-right: 14px !important;
-      margin-left: auto !important;
-      margin-right: auto !important;
-    }
-    
-    .tab-icon-image {
-      margin: 0 !important;
-    }
-    
-    &:is([selected]) {
-      .tab-background {
-        background-color: var(--tab-selected-bgcolor) !important;
-      }
-    }
   }
 }
 
@@ -759,6 +786,11 @@ button:not([class="footer-button"], [class~="panel-button"]) {
 /* Compact mode */
 
 @media (-moz-bool-pref: "zenfox.theme.compact-mode") {
+  #tabbrowser-tabbox {
+    margin-left: 3px !important;
+  }
+
+  
   #sidebar-main {
     min-width: 3px !important;
     max-width: 3px !important;
