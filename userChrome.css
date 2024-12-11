@@ -30,7 +30,7 @@ whatever you like, as long as they're valid CSS values.
 
 * {
   /* Primary accent color */
-  --zen-primary-color: #a0d490;
+  --zen-primary-color: #aac7ff;
   
   /* Branding, element and other colors, I recommend leaving these alone */
   --zen-colors-primary: color-mix(in srgb, var(--zen-primary-color) 50%, black 50%);
