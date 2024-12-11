@@ -426,6 +426,10 @@ body {
     
     &:not([disabled]):hover {
       background: var(--tab-hover-background-color) !important;
+      
+      &:is([checked], [open]) {
+        background: var(--toolbarbutton-active-background) !important;
+      }
     }
     
     &:not([disabled]):active {
@@ -822,11 +826,11 @@ button:not([class="footer-button"], [class~="panel-button"]) {
       min-height: 6px !important;
       max-height: 6px !important;
 
-      #nav-bar-customization-target, #PanelUI-button, .private-browsing-indicator-with-label {
+      #nav-bar-customization-target, #PanelUI-button {
         display: none !important;
       }
 
-      #nav-bar-overflow-button, .titlebar-buttonbox-container {
+      #nav-bar-overflow-button, .titlebar-buttonbox-container, .private-browsing-indicator-with-label {
         opacity: 0 !important;
       }
     }
@@ -842,11 +846,11 @@ button:not([class="footer-button"], [class~="panel-button"]) {
         min-height: unset !important;
         max-height: unset !important;
 
-        #nav-bar-customization-target, #PanelUI-button, .private-browsing-indicator-with-label {
+        #nav-bar-customization-target, #PanelUI-button {
           display: flex !important;
         }
 
-        #nav-bar-overflow-button, .titlebar-buttonbox-container {
+        #nav-bar-overflow-button, .titlebar-buttonbox-container, .private-browsing-indicator-with-label {
           opacity: 1 !important;
         }
       }
