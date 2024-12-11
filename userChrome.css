@@ -396,7 +396,7 @@ body {
 }
 
 #tabbrowser-arrowscrollbox-periphery {
-  @media (-moz-bool-pref: "zenfox.theme.show-newtab") {
+  @media (-moz-bool-pref: "zenfox.theme.hide-newtab") {
     display: none !important;
   }
 }
