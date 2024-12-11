@@ -22,7 +22,17 @@ SOFTWARE.
 
 */
 
+/*
+==== Beginning of customizable options ====
+The options below are customizable. Feel free to set them to
+whatever you like, as long as they're valid CSS values.
+*/
+
 * {
+  /* Primary accent color */
+  --zen-primary-color: #a0d490;
+  
+  /* Branding, element and other colors, I recommend leaving these alone */
   --zen-colors-primary: color-mix(in srgb, var(--zen-primary-color) 50%, black 50%);
   --zen-colors-secondary: color-mix(in srgb, var(--zen-colors-primary) 20%, white 80%);
   --zen-colors-tertiary: color-mix(in srgb, var(--zen-primary-color) 2%, white 98%);
@@ -33,6 +43,7 @@ SOFTWARE.
   --zen-branding-bg-reverse: light-dark(var(--zen-branding-dark), var(--zen-branding-paper));
   --toolbarbutton-hover-background: color-mix(in srgb, var(--zen-branding-bg-reverse) 10%, transparent 90%);
   --toolbarbutton-active-background: light-dark(rgba(255, 255, 255, .9), color-mix(in srgb, var(--zen-primary-color) 50%, rgba(255, 255, 255, .1)));
+  --zen-themed-toolbar-bg: light-dark(var(--zen-branding-bg), var(--zen-colors-tertiary));
   --zen-themed-toolbar-bg-transparency: 0;
   --zen-themed-toolbar-bg-transparent: light-dark(rgba(255, 255, 255, var(--zen-themed-toolbar-bg-transparency)), rgba(0, 0, 0, var(--zen-themed-toolbar-bg-transparency)));
   --zen-toolbar-element-bg: light-dark( rgba(255, 255, 255, 0.4), rgba(170, 170, 170, 0.2) );
@@ -44,24 +55,13 @@ SOFTWARE.
     --zen-colors-border: color-mix(in srgb, var(--zen-colors-secondary) 80%, black 20%);
     --urlbar-box-bgcolor: color-mix(in srgb, var(--zen-primary-color) 3%, rgb(24,24,24) 97%);
   }
-}
-
-/*
-==== Beginning of customizable options ====
-The options below are customizable. Feel free to set them to
-whatever you like, as long as they're valid CSS values.
-*/
-
-* {
-  /* Primary accent color */
-  --zen-primary-color: #a0d490;
   
   /* Background color (light mode) */
-  --zen-browser-background: linear-gradient(45deg, color-mix(in srgb, rgb(224.4, 255, 184.8) 30%, var(--zen-themed-toolbar-bg-transparent) 70%), color-mix(in srgb, rgb(79.2, 255, 70.4) 30%, var(--zen-themed-toolbar-bg-transparent) 70%));
+  --zen-browser-background: var(--zen-themed-toolbar-bg);
   
   @media (prefers-color-scheme: dark) {
     /* Background color (dark mode) */
-    --zen-browser-background: linear-gradient(45deg, color-mix(in srgb, rgb(80.5, 127.5, 72.5) 20%, var(--zen-themed-toolbar-bg-transparent) 80%), color-mix(in srgb, rgb(34.5, 127.5, 30.5) 20%, var(--zen-themed-toolbar-bg-transparent) 80%));
+    --zen-browser-background: var(--zen-themed-toolbar-bg);
   }
 }
 
