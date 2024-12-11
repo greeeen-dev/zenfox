@@ -467,6 +467,12 @@ body {
     min-height: 28px !important;
     height: 28px !important;
   }
+  
+  .unified-extensions-item {
+    toolbarbutton {
+      margin: 0 !important;
+    }
+  }
 }
 
 #nav-bar-customization-target {
