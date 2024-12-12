@@ -2,6 +2,8 @@
 Zenfox is a fan project that brings most of [Zen Browser](https://zen-browser.app)'s design langiuage
 to Firefox. Also includes Compact mode!
 
+![](https://github.com/greeeen-dev/zenfox/blob/main/image.png?raw=true)
+
 ## Options
 ### Tabs & Sidebar
 - `zenfox.theme.hide-newtab`: Hides the new tab button on the tabs bar.
