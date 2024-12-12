@@ -471,6 +471,11 @@ body {
     min-height: 28px !important;
     height: 28px !important;
   }
+  
+  toolbaritem.unified-extensions-item {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
 }
 
 #nav-bar-customization-target {
