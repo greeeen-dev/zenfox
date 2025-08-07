@@ -2,6 +2,10 @@
 Zenfox is a fan project that brings most of [Zen Browser](https://zen-browser.app)'s design language
 to Firefox. Also includes Compact mode!
 
+> [!WARNING]
+> This project hasn't been touched in ages, so don't expect it to work. If you want a similar theme,
+> consider [Natsumi](https://github.com/greeeen-dev/natsumi-browser) instead.
+
 ![](https://github.com/greeeen-dev/zenfox/blob/main/image.png?raw=true)
 
 ## Options
